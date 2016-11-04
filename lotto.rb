@@ -15,9 +15,22 @@ class Lotto
   def display_ticket
     @ticket.display
   end
+
+  def sort
+    @ticket = @ticket.sort
+    return self
+  end
+
+  def reverse
+    @ticket = @ticket.reverse
+    return self
+  end
+
 end
 
 lotto_sim = Lotto.new
 
 puts "Your ticket is......"
-lotto_sim.display_ticket
+ticket = lotto_sim
+ticket.display_ticket
+ticket.reverse.display_ticket

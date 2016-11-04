@@ -71,6 +71,51 @@ class LinkedList
        puts "===" + full_list.join("->") + "==="
    end
 
+   def sort
+    # max_so_far = @head
+    # current = @head
+    #
+    # while current.next != nil
+    #   if current.next.value > max_so_far.value
+    #     max_so_far = current
+    #   end
+    # end
+
+   end
+
+  #       head
+  #      1 3 4 5 6 nil
+  #   temp        tail
+
+   def reverse
+
+     tail = nil
+
+     temp = @head
+     current = @head
+     @head = @head.next_node
+
+     while @head.next_node != tail
+
+       while current.next_node != tail
+         current = current.next_node
+       end
+
+       temp.next_node = current.next_node
+       current.next_node = temp
+
+       tail = temp
+       temp = @head
+       current = @head.next_node
+       @head = current
+
+     end
+
+     return self
+
+   end
+
+
    def include?(key)
      current = @head
      while current != nil
