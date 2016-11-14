@@ -24,6 +24,14 @@ class ArrayList
     end
   end
 
+  def sort
+    return @storage[0,@size].sort
+  end
+
+  def reverse
+    return @storage[0,@size].reverse
+  end
+
   def include?(key)
     @size.times do |i|
       if @storage[i] == key
