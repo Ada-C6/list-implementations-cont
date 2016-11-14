@@ -71,21 +71,63 @@ class LinkedList
        puts "===" + full_list.join("->") + "==="
    end
 
+   def is_sorted?
+    current = @head
+    sorted = true
+    while current.next_node != nil
+      if current.next_node.value < current.value
+        sorted = false
+      end
+      current = current.next_node
+    end
+    return sorted
+  end
+
+   # Sort list from smallest to largest
    def sort
-    # max_so_far = @head
-    # current = @head
-    #
-    # while current.next != nil
-    #   if current.next.value > max_so_far.value
-    #     max_so_far = current
-    #   end
-    # end
+
+    tail = nil
+    max_prev = nil
+    max_so_far = @head
+    current = @head
+
+    while !self.is_sorted?
+
+      while current.next_node != tail
+        if current.next_node.value > max_so_far.value
+          max_prev = current
+          max_so_far = current.next_node
+        end
+        current = current.next_node
+      end
+
+      # Detach the node from its current position (if it is not already in its right position)
+      if max_so_far == @head
+        @head = @head.next_node
+        current.next_node = max_so_far
+        max_so_far.next_node = tail
+      elsif current != max_so_far
+        max_prev.next_node = max_so_far.next_node
+        current.next_node = max_so_far
+        max_so_far.next_node = tail
+      end
+
+      # Set the node that was just placed (the max) to be the new tail - i.e., we should not
+      # proceed beyond this point in later iterations because this portion and beyond have
+      # already been sorted
+      tail = max_so_far
+
+      max_prev = nil
+      max_so_far = @head
+      current = @head
+
+    end
+
+    return self
 
    end
 
-  #       head
-  #      1 3 4 5 6 nil
-  #   temp        tail
+   # Reverse the order of the elements in the list
 
    def reverse
 
@@ -95,7 +137,7 @@ class LinkedList
      current = @head
      @head = @head.next_node
 
-     while @head.next_node != tail
+     while !is_sorted(self)
 
        while current.next_node != tail
          current = current.next_node
@@ -110,6 +152,13 @@ class LinkedList
        @head = current
 
      end
+
+     while current.next_node != tail
+       current = current.next_node
+     end
+
+     temp.next_node = current.next_node
+     current.next_node = temp
 
      return self
 
@@ -143,3 +192,13 @@ class LinkedList
    end
 
 end
+
+# list = LinkedList.new
+# list.add(13)
+# list.add(44)
+# list.add(28)
+# list.add(16)
+# list.add(43)
+# list.display
+# list.sort
+# list.display

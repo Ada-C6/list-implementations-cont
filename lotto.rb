@@ -4,11 +4,13 @@ require './linked-list.rb'
 class Lotto
   def initialize
     @ticket = LinkedList.new
+    counter = 0
     while @ticket.size < 5
       auto_num = rand(55) + 1
       if !@ticket.include?(auto_num)
         @ticket.add(auto_num)
       end
+      counter += 1
     end
   end
 
@@ -28,9 +30,10 @@ class Lotto
 
 end
 
-lotto_sim = Lotto.new
-
 puts "Your ticket is......"
-ticket = lotto_sim
+ticket = Lotto.new
 ticket.display_ticket
-ticket.reverse.display_ticket
+puts "Your sorted ticket is......"
+ticket.sort.display_ticket
+puts "Your sorted, reversed ticket is......"
+ticket.sort.display_ticket
